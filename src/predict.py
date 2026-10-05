@@ -2,8 +2,10 @@ import torch
 
 from PIL import Image
 
+from database import save_prediction,create_table
 from model import create_model
 
+import recommendations
 from transforms import val_transform
 
 model = create_model()
@@ -55,10 +57,24 @@ def predict_image(image_path):
     'Tomato___healthy'
     ]
 
-    return (
-        f"disease: {class_names[pred.item()]}",
-        f"confidence: {confidence.item()}"
+    disease = class_names[pred.item()]
+    confidence_score = confidence.item()
+
+    recommendation = recommendations[disease]
+
+# Automatically save to SQLite
+    save_prediction(
+        disease=disease,
+        confidence=confidence_score,
+        recommendation=recommendation
     )
+
+    return (
+        disease,
+        confidence_score,
+        recommendation
+    )
+    
 
 recommendations = {
 
@@ -133,10 +149,12 @@ recommendations = {
     """
 }
 
-disease, confidence = predict_image("C:\\Projects\\plant-disease-capstone\\src\\21fe0741-4ff6-4f8f-8969-6b8bdeea58fa___PSU_CG 2278.JPG")
+create_table()
+disease, confidence , recommendation = predict_image(r"C:\\Projects\\plant-disease-capstone\\src\\55e25156-7b0c-43c6-b6f8-37d0b7097a38___PSU_CG 2347.JPG")
 
 # Extract the actual class name by removing the "disease: " prefix
 clean_disease = disease.replace("disease: ", "").strip()
 
-print(disease,confidence,"recommendation:",recommendations[clean_disease])
-
+print(f"Disease: {clean_disease}")
+print(f"Confidence: {confidence}")
+print(f"Recommendation: {recommendation}")  

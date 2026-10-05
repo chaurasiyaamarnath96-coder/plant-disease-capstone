@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 from datetime import datetime
 
-DB_PATH = "database/plant_disease.db"
+DB_PATH = r"C:\\Projects\\plant-disease-capstone\\database\\plant_databse.db"
 
 
 def create_table():
