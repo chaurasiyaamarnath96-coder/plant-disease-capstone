@@ -44,14 +44,16 @@ def save_prediction(
     Save prediction to database.
     """
 
+    
+    
     timestamp = datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     )
-
+        
     conn = sqlite3.connect(DB_PATH)
 
     cursor = conn.cursor()
-
+        
     cursor.execute("""
     INSERT INTO predictions
     (
@@ -70,7 +72,8 @@ def save_prediction(
         disease,
         confidence,
         recommendation
-    ))
+
+        ))
 
     conn.commit()
     conn.close()
@@ -97,3 +100,4 @@ def get_predictions():
     conn.close()
 
     return df
+

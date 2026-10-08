@@ -63,17 +63,18 @@ def predict_image(image_path):
     recommendation = recommendations[disease]
 
 # Automatically save to SQLite
-    save_prediction(
-        disease=disease,
-        confidence=confidence_score,
-        recommendation=recommendation
-    )
-
+    if float(confidence_score) >= 0.98:
+        save_prediction(
+            disease=disease,
+            confidence=confidence_score,
+            recommendation=recommendation
+            )
+        
     return (
         disease,
         confidence_score,
         recommendation
-    )
+        )
     
 
 recommendations = {
@@ -149,12 +150,12 @@ recommendations = {
     """
 }
 
-create_table()
-disease, confidence , recommendation = predict_image(r"C:\\Projects\\plant-disease-capstone\\src\\55e25156-7b0c-43c6-b6f8-37d0b7097a38___PSU_CG 2347.JPG")
+# create_table()
+#disease, confidence , recommendation = predict_image("C:\\Projects\\plant-disease-capstone\\streamlit_app\\test_images\\test_image.jpg")
 
-# Extract the actual class name by removing the "disease: " prefix
-clean_disease = disease.replace("disease: ", "").strip()
+# # Extract the actual class name by removing the "disease: " prefix
+# clean_disease = disease.replace("disease: ", "").strip()
 
-print(f"Disease: {clean_disease}")
-print(f"Confidence: {confidence}")
-print(f"Recommendation: {recommendation}")  
+# print(f"Disease: {clean_disease}")
+# print(f"Confidence: {confidence}")
+# print(f"Recommendation: {recommendation}.dtype: {type(recommendation)}")  

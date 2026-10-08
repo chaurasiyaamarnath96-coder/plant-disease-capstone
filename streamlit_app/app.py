@@ -3,6 +3,7 @@ import os
 import sys
 
 
+
 sys.path.insert(0, r"C:\Projects\plant-disease-capstone\src")
 
 import tempfile
@@ -28,6 +29,9 @@ if uploaded_file:
     if st.button("Predict"):
         disease, confidence, recommendation = predict_image(temp_file_path)
         clean_disease = disease.replace("disease: ", "").strip()
-        st.success(f"Disease: {clean_disease}")
-        st.info(f"Confidence: {confidence:.2f}")
-        st.warning(f"Recommendation: {recommendation}")
+        if confidence < 0.98:
+            st.error("Image is not a tomato leaf. Please upload a valid tomato leaf image.") 
+        else:
+            st.success(f"Disease: {clean_disease}")
+            st.info(f"Confidence: {confidence:.2f}")
+            st.warning(f"Recommendation: {recommendation}")
