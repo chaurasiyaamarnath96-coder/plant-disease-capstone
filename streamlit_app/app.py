@@ -6,10 +6,11 @@ import tempfile
 # IMPORT PROJECT MODULES
 # -----------------------------
 
-sys.path.insert(
-    0,
-    r"C:\\Projects\\plant-disease-capstone\\src"
-)
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
 
 from src.predict import predict_image
 
