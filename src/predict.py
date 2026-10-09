@@ -8,9 +8,17 @@ from src.model import create_model
 from src.transforms import val_transform
 
 model = create_model()
+from pathlib import Path
+
+MODEL_PATH = (
+    Path(r"C:\\Projects\\plant-disease-capstone\\models\\best_model.pth").resolve().parent.parent
+    / "models"
+    / "best_model.pth"
+)
+
 model.load_state_dict(
     torch.load(
-        "C:\\Projects\\plant-disease-capstone\\models\\best_model.pth",
+        MODEL_PATH,
         map_location=torch.device("cpu")
     )
 )
