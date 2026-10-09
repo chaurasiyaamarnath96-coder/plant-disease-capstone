@@ -8,10 +8,10 @@ import tempfile
 
 sys.path.insert(
     0,
-    r"C:\Projects\plant-disease-capstone\src"
+    r"C:\\Projects\\plant-disease-capstone\\src"
 )
 
-from predict import predict_image
+from src.predict import predict_image
 
 # -----------------------------
 # PAGE CONFIG
