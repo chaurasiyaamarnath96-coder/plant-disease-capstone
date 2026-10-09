@@ -2,11 +2,10 @@ import torch
 
 from PIL import Image
 
-from database import save_prediction,create_table
-from model import create_model
+from src.database import save_prediction,create_table
+from src.model import create_model
 
-import recommendations
-from transforms import val_transform
+from src.transforms import val_transform
 
 model = create_model()
 model.load_state_dict(
