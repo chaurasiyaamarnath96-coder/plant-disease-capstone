@@ -7,14 +7,14 @@ from src.model import create_model
 
 from src.transforms import val_transform
 
-model = create_model()
 from pathlib import Path
 
-MODEL_PATH = (
-    Path(r"C:\\Projects\\plant-disease-capstone\\models\\best_model.pth").resolve().parent.parent
-    / "models"
-    / "best_model.pth"
-)
+
+ROOT = Path(__file__).resolve().parent.parent
+
+MODEL_PATH = ROOT / "models" / "best_model.pth"
+
+model = create_model()
 
 model.load_state_dict(
     torch.load(
@@ -22,10 +22,8 @@ model.load_state_dict(
         map_location=torch.device("cpu")
     )
 )
-#model.to("cuda" if torch.cuda.is_available() else "cpu")
-map_location = torch.device("cpu")
-model.eval()
 
+model.eval()
 
 
 def predict_image(image_path):
